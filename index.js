@@ -26,8 +26,8 @@ app.get('/api/test', (req, res) => {
   res.json({ message: 'GET request successful!', status: 'OK' });
 });
 
-// Test route - POST
-app.post('/api/test', (req, res) => {
+// Contact route - POST
+app.post('/api/contact', (req, res) => {
   const data = req.body;
   res.json({ message: 'POST request received!', received: data });
 });

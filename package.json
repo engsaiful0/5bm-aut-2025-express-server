@@ -1,7 +1,6 @@
 {
   "name": "5bm-autmn-2025-3532",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,5 +10,14 @@
   "license": "ISC",
   "dependencies": {
     "express": "^5.1.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/engsaiful0/5bm-aut-2025-express-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/engsaiful0/5bm-aut-2025-express-server/issues"
+  },
+  "homepage": "https://github.com/engsaiful0/5bm-aut-2025-express-server#readme",
+  "description": ""
 }
