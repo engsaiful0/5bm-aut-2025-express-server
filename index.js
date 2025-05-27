@@ -1,51 +1,35 @@
 const express = require('express');
+const cors = require('cors');
+require('dotenv').config(); // Load env vars
+require('./config/db'); // This initializes the MongoDB connection
+
+const Contact = require('./models/Contact'); // Import your Mongoose model
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
+app.use(cors({ origin: 'http://localhost:5173' }));
 app.use(express.json());
 
-// Simple route
+// Routes
 app.get('/', (req, res) => {
   res.send('Hello from Express server!');
 });
 
-// Example API route
-app.get('/api/greet', (req, res) => {
-  res.json({ message: 'Hello, API user!' });
+app.post('/api/contact', async (req, res) => {
+  try {
+    const { name, email, message, address } = req.body;
+    const newContact = new Contact({ name, email, message, address });
+    const saved = await newContact.save();
+
+    res.status(201).json({ message: 'Contact saved successfully!', contact: saved });
+  } catch (err) {
+    console.error('Error saving contact:', err);
+    res.status(500).json({ error: 'Failed to save contact' });
+  }
 });
 
-
-// Root route
-app.get('/', (req, res) => {
-  res.send('Express API is running.');
-});
-
-// Test route - GET
-app.get('/api/test', (req, res) => {
-  res.json({ message: 'GET request successful!', status: 'OK' });
-});
-
-// Contact route - POST
-app.post('/api/contact', (req, res) => {
-  const data = req.body;
-  res.json({ message: 'POST request received!', received: data });
-});
-
-// Test route - PUT
-app.put('/api/test/:id', (req, res) => {
-  const { id } = req.params;
-  const updatedData = req.body;
-  res.json({ message: `PUT request received for ID ${id}`, updated: updatedData });
-});
-
-// Test route - DELETE
-app.delete('/api/test/:id', (req, res) => {
-  const { id } = req.params;
-  res.json({ message: `DELETE request received for ID ${id}`, deleted: true });
-});
-
-// Start server
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
